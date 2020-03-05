@@ -168,6 +168,8 @@ class _NotusMarkdownEncoder extends Converter<Delta, String> {
       _writeHeadingTag(buffer, attribute as NotusAttribute<int>);
     } else if (attribute.key == NotusAttribute.block.key) {
       _writeBlockTag(buffer, attribute as NotusAttribute<String>, close: close);
+    } else if (attribute.key == NotusAttribute.embed.key) {
+      _writeEmbed(buffer, attribute as NotusAttribute<Map<String, dynamic>>, close: close);
     } else {
       throw ArgumentError('Cannot handle $attribute');
     }
@@ -210,4 +212,13 @@ class _NotusMarkdownEncoder extends Converter<Delta, String> {
       buffer.write(tag);
     }
   }
+
+  void _writeEmbed(StringBuffer buffer, NotusAttribute<Map<String, dynamic>> block,
+      {bool close = false}) {
+    if (close) {
+      buffer.write(']('+string.value['source']+')');
+    } else {
+      buffer.write('![Image');
+    }
+  } 
 }
