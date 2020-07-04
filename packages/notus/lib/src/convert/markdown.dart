@@ -232,7 +232,7 @@ class _NotusMarkdownEncoder extends Converter<Delta, String> {
     }
     if (block is EmbedAttribute) {
       if (block.type == EmbedType.image) {
-        buffer.write('![markdown_image](${block.value['source'].toString()})');
+        buffer.write('<div align=center>![markdown_image](${block.value['source'].toString()})</div>');
       } else if (block.type == EmbedType.horizontalRule) {
         buffer.write('***');
       }
