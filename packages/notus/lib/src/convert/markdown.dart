@@ -169,7 +169,9 @@ class _NotusMarkdownEncoder extends Converter<Delta, String> {
     } else if (attribute.key == NotusAttribute.block.key) {
       _writeBlockTag(buffer, attribute as NotusAttribute<String>, close: close);
     } else if (attribute.key == NotusAttribute.embed.key) {
-      _writeEmbed(buffer, attribute as NotusAttribute<Map<String, dynamic>>, close: close);
+      _writeEmbed(buffer, attribute as NotusAttribute<Map<String, dynamic>>,
+          close: close);
+          // _writeEmbedTag(buffer, attribute, close: close);
     } else {
       throw ArgumentError('Cannot handle $attribute');
     }
@@ -213,12 +215,27 @@ class _NotusMarkdownEncoder extends Converter<Delta, String> {
     }
   }
 
-  void _writeEmbed(StringBuffer buffer, NotusAttribute<Map<String, dynamic>> block,
+  void _writeEmbed(
+      StringBuffer buffer, NotusAttribute<Map<String, dynamic>> block,
       {bool close = false}) {
     if (close) {
-      buffer.write(']('+string.value['source']+')');
+      buffer.write('](' + block.value['source'] + ')');
     } else {
       buffer.write('![Image');
     }
-  } 
+  }
+
+  // void _writeEmbedTag(StringBuffer buffer, NotusAttribute block,
+  //     {bool close: false}) {
+  //   if (close) {
+  //     return;
+  //   }
+  //   if (block is EmbedAttribute) {
+  //     if (block.type == EmbedType.image) {
+  //       buffer.write('![markdown_image](${block.value['source'].toString()})');
+  //     } else if (block.type == EmbedType.horizontalRule) {
+  //       buffer.write('----');
+  //     }
+  //   }
+  // }
 }
