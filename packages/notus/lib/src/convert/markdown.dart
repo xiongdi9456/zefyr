@@ -234,7 +234,7 @@ class _NotusMarkdownEncoder extends Converter<Delta, String> {
       if (block.type == EmbedType.image) {
         buffer.write('![markdown_image](${block.value['source'].toString()})');
       } else if (block.type == EmbedType.horizontalRule) {
-        buffer.write('----');
+        buffer.write('***');
       }
     }
   }
