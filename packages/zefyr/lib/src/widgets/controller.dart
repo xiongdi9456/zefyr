@@ -128,9 +128,20 @@ class ZefyrController extends ChangeNotifier {
           delta.length <= 2 &&
           delta.last.isInsert) {
         // Apply it.
-        Delta retainDelta = Delta()
+        // Delta retainDelta = Delta()
+        //   ..retain(index)
+        //   ..retain(text.length, toggledStyles.toJson());
+        //add by sheldon 2020/07/06
+        Delta retainDelta;
+        if (text.isNotEmpty && text.trim().isEmpty && text == '\n' && toggledStyles.contains(NotusAttribute.bold)) {
+          retainDelta = Delta()
+          ..retain(index)
+          ..retain(text.length, null);
+        } else {
+          retainDelta = Delta()
           ..retain(index)
           ..retain(text.length, toggledStyles.toJson());
+        }
         document.compose(retainDelta, ChangeSource.local);
       }
     }
