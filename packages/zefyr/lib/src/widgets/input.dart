@@ -172,10 +172,8 @@ class InputConnectionController implements TextInputClient {
   }
 
   @override
-  // TODO: implement currentTextEditingValue
   TextEditingValue get currentTextEditingValue =>
       _lastKnownRemoteTextEditingValue;
-
 
   @override
   void connectionClosed() {
@@ -191,6 +189,8 @@ class InputConnectionController implements TextInputClient {
   AutofillScope get currentAutofillScope => null;
 
   @override
-  void showAutocorrectionPromptRect(int start, int end) {
-  }
+  void showAutocorrectionPromptRect(int start, int end) {}
+
+  @override
+  void performPrivateCommand(String action, Map<String, dynamic> data) {}
 }
